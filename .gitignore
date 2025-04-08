@@ -1,0 +1,9 @@
+# Dirs
+venv/
+__pycache__/
+
+# Files
+report-2017.06.30.html
+homework.pdf
+report.html
+nginx-access-ui.log-20170630
