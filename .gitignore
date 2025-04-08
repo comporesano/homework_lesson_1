@@ -1,5 +1,5 @@
 # Dirs
-venv/
+.venv/
 __pycache__/
 
 # Files
