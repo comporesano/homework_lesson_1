@@ -24,7 +24,7 @@ jobs:
 
       - name: Run linting
         run: |
-          python -m black --check --exclude=".venv" .
+          python -m black --check --exclude="./.venv" .
           python -m isort --check-only .
           python -m flake8 .
           python -m mypy --ignore-missing-imports .
