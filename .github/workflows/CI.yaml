@@ -24,15 +24,9 @@ jobs:
 
       - name: Run linting
         run: |
-          # Для black используем явное исключение через extend-exclude
-          python -m black --check --extend-exclude="/(\.venv|venv|build|dist)/" .
-
-          # Для isort используем skip
-          python -m isort --check-only --skip .venv --skip venv .
-
-          # Для flake8 используем exclude в конфиге или аргументе
-          python -m flake8 --exclude=.venv,venv,build,dist .
-
+          python -m black --check --exclude=".venv" .
+          python -m isort --check-only .
+          python -m flake8 .
           python -m mypy --ignore-missing-imports .
 
       - name: Run tests
