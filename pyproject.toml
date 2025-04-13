@@ -9,6 +9,16 @@ dependencies = [
     "structlog>=25.2.0",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "black",
+    "isort",
+    "flake8",
+    "mypy",
+    "pytest",
+    "pytest-cov",
+]
+
 [tool.black]
 line-length = 120
 target-version = ['py311']
