@@ -4,7 +4,7 @@ import re
 import sys
 from datetime import datetime
 from statistics import median
-from typing import Optional
+from typing import Optional, TextIO
 
 import structlog
 
@@ -25,6 +25,7 @@ class LogAnalyzer:
     ) -> None:
         try:
             # Init config
+            app_log_file: Optional[TextIO] = None
             self.config = {
                 "REPORT_SIZE": report_size,
                 "REPORT_DIR": report_dir,
@@ -103,7 +104,7 @@ class LogAnalyzer:
             requests_data = raw_data.pop("data")
             raw_data["timings_sum"] = 0
             raw_data["data"] = []
-            data_dict = {}
+            data_dict: dict[str, str] = {}
             for el in requests_data:
                 url = el.get("url")
                 time = float(el.get("time"))
@@ -144,8 +145,8 @@ class LogAnalyzer:
         self.logger.info("Starting file parsing")
         try:
             file_name = self.__get_last_logfile()
-            file_path = os.path.join(self.config.get("LOG_DIR"), file_name)
-            cache_file = os.path.join(self.config.get("CACHE_DIR"), f"{file_name}.json")
+            file_path = os.path.join(self.config["LOG_DIR"], file_name)
+            cache_file = os.path.join(self.config["CACHE_DIR"], f"{file_name}.json")
             self.logger.debug("Checking cache", file_path=file_path, cache_file=cache_file)
             if data := self.__check_cache(log_file=file_path, cache_file=cache_file):
                 self.logger.info("Using cached data", file_path=file_path)
