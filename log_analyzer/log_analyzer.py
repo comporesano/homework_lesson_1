@@ -17,15 +17,14 @@ class LogAnalyzer:
     def __init__(
         self,
         report_size: int = 10,
-        report_dir: Optional[str] = "./reports",
-        log_dir: Optional[str] = "./log",
-        cache_dir: Optional[str] = "./cache",
+        report_dir: str = "./reports",
+        log_dir: str = "./log",
+        cache_dir: str = "./cache",
         app_log_dir: str = "./app_log",
-        app_log_file_name: Optional[str] = None,
+        app_log_file: Optional[str] = None,
     ) -> None:
         try:
             # Init config
-            app_log_file: Optional[TextIO] = None
             self.config = {
                 "REPORT_SIZE": report_size,
                 "REPORT_DIR": report_dir,
@@ -34,11 +33,12 @@ class LogAnalyzer:
                 "APP_LOG_DIR": app_log_dir,
                 "APP_LOG_FILE": app_log_file,
             }
+            io_log_file: Optional[TextIO] = None
             # Structlog configuration
             if app_log_file:
-                app_log_file = open(file=os.path.join(app_log_dir, app_log_file_name), mode="a", encoding="utf-8")
+                io_log_file = open(file=os.path.join(app_log_dir, app_log_file), mode="a", encoding="utf-8")
             else:
-                app_log_file = sys.stdout
+                io_log_file = sys.stdout
             structlog.configure(
                 processors=[
                     structlog.processors.add_log_level,
@@ -49,7 +49,7 @@ class LogAnalyzer:
                 ],
                 wrapper_class=structlog.BoundLogger,
                 context_class=dict,
-                logger_factory=structlog.PrintLoggerFactory(file=app_log_file),
+                logger_factory=structlog.PrintLoggerFactory(file=io_log_file),
                 cache_logger_on_first_use=True,
             )
             self.logger = structlog.get_logger()
