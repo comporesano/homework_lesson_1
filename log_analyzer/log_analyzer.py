@@ -20,8 +20,8 @@ class LogAnalyzer:
         report_dir: Optional[str] = "./reports",
         log_dir: Optional[str] = "./log",
         cache_dir: Optional[str] = "./cache",
-        app_log_dir: Optional[str] = "./app_log",
-        app_log_file: Optional[str] = None,
+        app_log_dir: str = "./app_log",
+        app_log_file_name: Optional[str] = None,
     ) -> None:
         try:
             # Init config
@@ -36,7 +36,7 @@ class LogAnalyzer:
             }
             # Structlog configuration
             if app_log_file:
-                app_log_file = open(file=os.path.join(app_log_dir, app_log_file), mode="a", encoding="utf-8")
+                app_log_file = open(file=os.path.join(app_log_dir, app_log_file_name), mode="a", encoding="utf-8")
             else:
                 app_log_file = sys.stdout
             structlog.configure(
@@ -104,7 +104,7 @@ class LogAnalyzer:
             requests_data = raw_data.pop("data")
             raw_data["timings_sum"] = 0
             raw_data["data"] = []
-            data_dict: dict[str, str] = {}
+            data_dict: dict[str, list] = {}
             for el in requests_data:
                 url = el.get("url")
                 time = float(el.get("time"))
