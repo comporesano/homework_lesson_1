@@ -23,6 +23,9 @@ dev = [
     "pytest-cov",
 ]
 
+[project.scripts]
+log-analyzer = "log_analyzer.main:main"
+
 [tool.black]
 line-length = 120
 target-version = ['py311']
@@ -44,6 +47,3 @@ disallow_untyped_defs = true
 
 [tool.setuptools]
 packages = { find = { where = ["log_analyzer"] } }
-
-[tool.setuptools.scripts]
-log-analyzer = "log_analyzer.main:main"
