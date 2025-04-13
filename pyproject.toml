@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "log_analyzer"
 version = "0.0.1"
@@ -37,3 +41,9 @@ python_version = "3.11"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
+
+[tool.setuptools]
+packages = { find = { where = ["log_analyzer"] } }
+
+[tool.setuptools.scripts]
+log-analyzer = "log_analyzer.main:main"
