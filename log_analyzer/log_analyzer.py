@@ -4,7 +4,7 @@ import re
 import sys
 from datetime import datetime
 from statistics import median
-from typing import Optional, TextIO
+from typing import Optional, TextIO, Union
 
 import structlog
 from custom_types import ConfigType
@@ -152,7 +152,7 @@ class LogAnalyzer:
             if data := self.__check_cache(log_file=file_path, cache_file=cache_file):
                 self.logger.info("Using cached data", file_path=file_path)
                 return data
-            raw_result = {
+            raw_result: dict[str, Union[str, int, list]] = {
                 "file_path": file_path,
                 "file_name": file_name,
                 "requests_count": 0,
