@@ -7,6 +7,7 @@ from statistics import median
 from typing import Optional, TextIO
 
 import structlog
+from custom_types import ConfigType
 
 
 class LogAnalyzer:
@@ -25,7 +26,7 @@ class LogAnalyzer:
     ) -> None:
         try:
             # Init config
-            self.config = {
+            self.config: ConfigType = {
                 "REPORT_SIZE": report_size,
                 "REPORT_DIR": report_dir,
                 "LOG_DIR": log_dir,
