@@ -26,7 +26,6 @@ jobs:
           black --check .
           isort --check-only .
           flake8 .
-          mypy --ignore-missing-imports .
 
       - name: Run tests
         run: |

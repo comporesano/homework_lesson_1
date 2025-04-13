@@ -8,4 +8,4 @@ class ConfigType(TypedDict):
     LOG_DIR: Union[str, PathLike[str]]
     CACHE_DIR: Union[str, PathLike[str]]
     APP_LOG_DIR: Union[str, PathLike[str]]
-    APP_LOG_FILE: Union[str, PathLike[str]]
+    APP_LOG_FILE: Union[str, PathLike[str], None]
